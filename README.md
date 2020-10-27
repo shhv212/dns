@@ -10,4 +10,4 @@
 *********************************
 
 <a name="dnshowtowork"></a>
-# 1. DNS là gì? Cách thức hoạt động của DNS
+### 1. DNS là gì? Cách thức hoạt động của DNS
