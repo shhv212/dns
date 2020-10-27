@@ -9,5 +9,7 @@
 
 *********************************
 
-<a name="dnshowtowork"></a>
-### 1. DNS là gì? Cách thức hoạt động của DNS
+<a name="dnsandhowtowork"></a>  
+### 1. DNS là gì? Cách thức hoạt động của DNS  
+
+DNS là một máy chủ phân giải tên miền. 
