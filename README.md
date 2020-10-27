@@ -12,4 +12,7 @@
 <a name="dnsandhowtowork"></a>  
 ### 1. DNS là gì? Cách thức hoạt động của DNS  
 
-DNS là một máy chủ phân giải tên miền. 
+**DNS** (viết tắt là Domain Name System) là một máy chủ phân giải tên miền. Một cách dễ hiểu hơn là nó chuyển tên miền mà người dùng nhập vào thành địa chỉ IP tương ứng và ngược lại.  
+
+Cách hoạt động của DNS: 
+
