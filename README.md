@@ -71,7 +71,7 @@ Trên đây ta sẽ có chỉ số ưu tiên tương ứng với tên của mỗ
 
 <img src="https://i.imgur.com/6E82VAE.png">  
 
-<a name="typeofdns">  
+<a name="typeofdns"></a>  
 ### 3. Primary và secondary DNS, Round-Robin DNS, Reverse DNS  
 
 - **Primary DNS** là nơi mà lưu trữ và quản lý chính thông tin về các tên miền, các tên miền sẽ được tạo, sửa đổi và cập nhật và sửa đổi ở đây, sau đó được sao lưu sang cho các Secondary DNS.  
