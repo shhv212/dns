@@ -27,7 +27,7 @@ Hình trên đây là cách mà `DNS server` hoạt động: Ví dụ như ngư�
  
 Một số loại bản ghi thông dụng :  
 
-- SOA record : đây chính là bản ghi lưu trữ các thông tin chính về domain của DNS server hay việc chuyển đổi giữa các DNS Zone. Chỉ có duy nhất một bản ghi này trong mỗi DNS Zone. Dưới đây là một ví dụ về phân tích bản ghi SOA :  
+- **SOA record** : đây chính là bản ghi lưu trữ các thông tin chính về domain của DNS server hay việc chuyển đổi giữa các DNS Zone. Chỉ có duy nhất một bản ghi này trong mỗi DNS Zone. Dưới đây là một ví dụ về phân tích bản ghi SOA :  
 
 <img src="https://i.imgur.com/mwwE5h2.png">  
 
@@ -43,31 +43,31 @@ Trên ví dụ ta thấy có những thông số cần lưu ý sau đây:
 - TTL - đây là thời gian mà máy chủ DNS sẽ lưu giữ thông tin của bản ghi, nếu như TTL lớn thì nếu như thay đổi thông tin tên miền trên máy chủ DNS thì nó sẽ càng lâu bị cập nhật. (mặc định là 1 phút)  
 ``` 
 
-- Name Server record : bản ghi này chỉ ta tên của các name server cho tên miền tương ứng. 
+- **Name Server record** : bản ghi này chỉ ta tên của các name server cho tên miền tương ứng. 
 
 <img src="https://i.imgur.com/VKl0FXD.png">  
 
 Trên đây ta thấy ứng với tên miền www.google.com có 4 name servers.  
 
-- A record : đây là một record khá quan trọng nhằm ánh xạ và chuyển từ tên miền qua địa chỉ IP để có thể truy cập web.  
+- **A record** : đây là một record khá quan trọng nhằm ánh xạ và chuyển từ tên miền qua địa chỉ IP để có thể truy cập web.  
 
 <img src="https://i.imgur.com/vjto6Zc.png">  
 
 Trong ví dụ, tên miền google.com có địa chỉ IP là 172.217.26.142.  
 
-- CNAME record : đây là bản ghi giúp nhiều tên miền khác nhau có thể trỏ cùng về một địa chỉ IP khác nhau.  
+- **CNAME record** : đây là bản ghi giúp nhiều tên miền khác nhau có thể trỏ cùng về một địa chỉ IP khác nhau.  
 
-- AAAA record : đây là bản ghi sử dụng để chuyển đổi tên miền sang một địa chỉ IP 128-bit IPv6.  
+- **AAAA record** : đây là bản ghi sử dụng để chuyển đổi tên miền sang một địa chỉ IP 128-bit IPv6.  
 
 <img src="https://i.imgur.com/2muQIco.png">  
 
-- MX record : đây là bản ghi dùng để xác định được mail server cho một tên miền cụ thể.  
+- **MX record** : đây là bản ghi dùng để xác định được mail server cho một tên miền cụ thể.  
 
 <img src="https://i.imgur.com/Z0bDHJV.png">  
 
 Trên đây ta sẽ có chỉ số ưu tiên tương ứng với tên của mỗi mail server đối với tên miền `google.com`.  
 
-- PTR record : đây là bản ghi dùng chuyển địa chỉ IP về tên miền tương ứng. 
+- **PTR record** : đây là bản ghi dùng chuyển địa chỉ IP về tên miền tương ứng. 
 
 <img src="https://i.imgur.com/6E82VAE.png">  
 
