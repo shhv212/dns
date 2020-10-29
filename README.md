@@ -91,11 +91,11 @@ Ví dụ: Một trang web có một tên miền duy nhất và chứa cùng mộ
 
 Trong ví dụ này ta sẽ sử dụng 2 máy ảo: 1 **máy ảo Ubuntu** dùng làm `DNS server` và 1 **máy ảo CentOS** để dùng làm `Client`. Trên máy ảo Ubuntu, ta cài đặt dịch vụ `Bind9` để cấu hình DNS server và một các zone cho domain thuctap.azdigi.com. Trên **máy ảo CentOS** ta sẽ trỏ DNS về địa chỉ IP của **máy Master** và thực hiện lookup để lấy được các record của domain thuctap.azdigi.com. Dùng tcmpdump hoặc wireshark để bắt các gói tin UDP về quá trình truy vấn DNS.  
 
-Đầu tiên trên **máy Master** chúng ta sẽ cài đặt dịch vụ `Bind9` trên đó. lưu ý cần cập nhật các ứng dụng và hệ thống trước khi cài đặt vì có thể phát sinh lỗi :  
+Đầu tiên trên **máy Master** chúng ta sẽ cài đặt dịch vụ `Bind9` trên đó, lưu ý cần cập nhật các ứng dụng và hệ thống trước khi cài đặt vì có thể phát sinh lỗi :  
 
 <img src="https://i.imgur.com/5GhNs13.png">  
 
-Sau đó chúng ta kiểm tra lại cấu hình mạng của hệ thống bằng lênh `ifconfig` trước khi cấu hình IP tĩnh:  
+Sau đó chúng ta kiểm tra lại cấu hình mạng của hệ thống bằng lệnh `ifconfig` trước khi cấu hình IP tĩnh:  
 
 <img src="https://i.imgur.com/8uDH8Wp.png">  
 
@@ -155,11 +155,11 @@ Và thực hiện truy vấn ngược DNS hay còn gọi là `rDNS`, chuyển t�
 
 <img src="https://i.imgur.com/OQgqrm6.png">  
 
-Đến lúc này ta có thể dùng **máy Client** là máy **CentOS** được cấu hình một địa chỉ IP cùng mạng với DNS server và sử dụng địa chỉ DNS là địa chỉ của **máy Master** :
+Đến lúc này ta có thể dùng **máy Client** là **máy CentOS** được cấu hình một địa chỉ IP cùng mạng với DNS server và sử dụng địa chỉ DNS là địa chỉ của **máy Master** :
 
 <img src="https://i.imgur.com/vdSJwRF.png">  
 
-Từ **máy Client** có thể tra được các record của domain "azdigi.com" dựa vào lệnh `lookup` :
+Cấu hình xong phải start lại dịch vụ mạng của **máy Client**. Từ **máy Client** có thể tra được các record của domain "azdigi.com" dựa vào lệnh `lookup` :
 
 <img src="https://i.imgur.com/nTsg4yZ.png">  
 
