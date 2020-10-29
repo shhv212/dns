@@ -179,4 +179,4 @@ Chúng ta có thể sử dụng `wireshark` để thấy rõ hơn các gói tin 
 
 <img src="https://i.imgur.com/DNahX6m.png">  
 
-Ta có thể thấy rõ các gói tin request từ phía `Client` có chứa thông tin tên miền được gửi đến máy `Master` và được DNS server trả lại kết quả là địa chỉ IP tương ứng.
+Ta quan sát thấy rõ các gói tin request từ phía `Client` có chứa thông tin tên miền được gửi đến máy `Master` và được DNS server trả lại kết quả là địa chỉ IP tương ứng.
