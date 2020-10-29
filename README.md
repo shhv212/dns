@@ -86,8 +86,97 @@ Ví dụ: Một trang web có một tên miền duy nhất và chứa cùng mộ
 
 - **Reserve DNS** là hệ thống phân giải tên miền ngược. Ngược lại hoàn toàn so với DNS server là phân giải tên miền là người dùng nhập vào thành địa chỉ IP thì Reverse DNS sẽ chuyển từ địa chỉ IP sang tên miền tương ứng.  
 
+<a name="thuchanh"></a>  
+### 4. Thực hành  
 
+Trong ví dụ này ta sẽ sử dụng 2 máy ảo: 1 máy ảo Ubuntu dùng làm `DNS server` và 1 máy ảo CentOS để dùng làm `Client`. Trên máy ảo Ubuntu, ta cài đặt dịch vụ `Bind9` để cấu hình DNS server và một các zone cho domain thuctap.azdigi.com. Trên máy ảo CentOS ta sẽ trỏ DNS về địa chỉ IP của máy Master và thực hiện lookup để lấy được các record của domain thuctap.azdigi.com. Dùng tcmpdump hoặc wireshark để bắt các gói tin UDP về quá trình truy vấn DNS.  
 
+Đầu tiên trên máy Master chúng ta sẽ cài đặt dịch vụ Bind9 trên đó. lưu ý cần cập nhật các ứng dụng và hệ thống trước khi cài đặt vì có thể phát sinh lỗi :  
 
+<img src="https://i.imgur.com/5GhNs13.png">  
 
+Sau đó chúng ta kiểm tra lại cấu hình mạng của hệ thống bằng lênh `ifconfig` trước khi cấu hình IP tĩnh:  
 
+<img src="https://i.imgur.com/8uDH8Wp.png">  
+
+Ta thấy địa chỉ hiện tại do DHCP cấp cho máy là `192.168.229.139`, tiến hành đặt lại IP tĩnh cho máy về IP `192.168.10.2` và gateway là `192.168.10.1` :
+
+<img src="https://i.imgur.com/MXrAeev.png">  
+
+Và đây là kết quả thu được sau đó:  
+
+<img src="https://i.imgur.com/wYHcIE0.png">  
+
+Sử dụng lệnh `ls` để liệt kê toàn bộ file đang hiện có trong thư mục `/etc/bind` vừa được cài đặt, ta mở file `named.conf.options` để sửa một số thông tin như bên dưới, mục đích chủ yếu là để forward tất cả những yêu cầu mà DNS server mà mình tạo ra này không thể phân giải được sang cho những DNS server khác:  
+
+<img src="https://i.imgur.com/mC01CCu.png">  
+
+<img src="https://i.imgur.com/OLEHwlW.png">  
+
+Tiếp theo là mở file `named.conf.local` lên để thêm các zone cho domain `azdigi.com` vào đó:  
+
+<img src="https://i.imgur.com/tkoHrST.png">  
+
+<img src="https://i.imgur.com/Q3etNhA.png">  
+
+Ở trên ta sử dụng 2 zone chứa 2 file database để lưu trữ những cặp địa chỉ IP và domain phục vụ cho việc truy vấn DNS và truy vấn DNS ngược.
+
+Bây giờ ta thực hiện cấu hình cho 2 file db này đó là `db.forward.com` và `db.reverse.com`. Trước tiên là file `db.forward.com` :  
+
+<img src="https://i.imgur.com/YqosB9c.png">  
+
+<img src="https://i.imgur.com/kz73vnW.png">
+
+Chúng ta tạo 3 sub domain cho domain `azdigi.com` đó là `thuctap.azdigi.com` , `hochiminh.azdigi.com` và `huusang.azdigi.com`.  
+
+Đối với file `db.reverse.com`:  
+
+<img src="https://i.imgur.com/3nVAbff.png">  
+
+<img src="https://i.imgur.com/5uafgDq.png">  
+
+Chủ yếu ở file forward chúng ta dùng `A record` còn ở file reverse dùng `PTR record`.
+
+Bây giờ chúng ta sẽ thêm địa chỉ IP và domain của DNS server được tạo ra vào trong file `resolv.conf` vì trong file này liệt kê tất cả những DNS server có trong mạng của chúng ta:  
+
+<img src="https://i.imgur.com/GBjCuvB.png">  
+
+<img src="https://i.imgur.com/equVrK3.png">  
+
+Cuối cùng khởi động lại dịch vụ Bind9:  
+
+<img src="https://i.imgur.com/PSHMIGN.png">  
+
+Đến đây chúng ta đã hoàn tất quá trình cài đặt DNS server cho máy Ubuntu, có thể thực hiện lookup như sau:  
+
+<img src="https://i.imgur.com/K6ezWpk.png">  
+
+Và thực hiện truy vấn ngược DNS hay còn gọi là `rDNS`, chuyển từ địa chỉ IP sang tên miền:  
+
+<img src="https://i.imgur.com/OQgqrm6.png">  
+
+Đến lúc này ta có thể dùng máy `Client` là máy CentOS được cấu hình một địa chỉ IP cùng mạng với DNS server và sử dụng địa chỉ DNS là địa chỉ của máy `Master` :
+
+<img src="https://i.imgur.com/vdSJwRF.png">  
+
+Từ máy Client có thể tra được các record của domain "azdigi.com" dựa vào lênh `lookup` :
+
+<img src="https://i.imgur.com/nTsg4yZ.png">  
+
+<img src="https://i.imgur.com/lBwZX8o.png">  
+
+Ngay khi thực hiện truy vấn DNS, có thể dùng tcpdump để bắt các gói tin UDP:  
+
+<img src="https://i.imgur.com/Q0lKqRr.png">  
+
+Kết quả:  
+
+<img src="https://i.imgur.com/JodBGVW.png">  
+
+<img src="https://i.imgur.com/k4t3tT6.png">  
+
+Chúng ta có thể sử dụng wireshark để thấy rõ hơn các gói tin UDP được gửi như thế nào:  
+
+<img src="https://i.imgur.com/DNahX6m.png">  
+
+Ta có thể thấy rõ các gói tin request từ phía `Client` gửi thông tin tên miền đến máy `Master` và được DNS server trả lại kết quả là địa chỉ IP tương ứng.
